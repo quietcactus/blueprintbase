@@ -1,0 +1,59 @@
+:root {
+  /* font-size: 17px; */
+  --font-size-h1: 2.5rem;
+  --font-size-h2: 1.7rem;
+  --font-size-h3: 1.4rem;
+  --font-size-h4: 1.2rem;
+  --font-size-h5: 1.1rem;
+  --color-body-text: #14172f;
+  --color-primary: #14172f;
+  --color-secondary: #0093ff;
+  --color-alternate: #004d8e;
+  --color-gray: #e3e3e3;
+  --color-light-gray: #edf1f5;
+  --color-near-white: #f9fbfd;
+  --color-near-black: #041216;
+  --font-family-body: 'Red Hat Display', sans-serif;
+  --font-family-heading: 'Red Hat Display', sans-serif;
+  --header-height: 100px;
+  --gutter-size: 30px;
+  --swiper-theme-color: var(--color-primary);
+  --swiper-navigation-color: var(--color-alternate);
+  --swiper-pagination-bullet-inactive-color: var(--color-body-text);
+  --swiper-pagination-bullet-opacity: 1;
+  --swiper-pagination-bullet-inactive-opacity: 1;
+  --swiper-pagination-bullet-horizontal-gap: 5px;
+  --swiper-pagination-bullet-size: 16px;
+  --swiper-pagination-bottom: -50px;
+}
+
+@media screen and (min-width: 768px) {
+  .main-inner {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -o-flex;
+    display: flex;
+  }
+
+  .content {
+    width: 65%;
+    margin-bottom: 0;
+    padding-right: 70px;
+  }
+
+  .content.full-width {
+    width: 100%;
+    padding-right: var(--gutter-size);
+  }
+
+  .sidebar {
+    width: 35%;
+    padding-left: 0;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .content {
+    padding-right: calc(2 * var(--gutter-size));
+  }
+}

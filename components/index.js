@@ -23,6 +23,8 @@ import SearchInput from './SearchInput';
 import SearchResults from './SearchResults';
 import LoadingSearchResult from './LoadingSearchResult';
 import SearchRecommendations from './SearchRecommendations';
+import Row from './Row';
+import Column from './Column';
 
 export {
   Button,
@@ -50,4 +52,6 @@ export {
   SearchResults,
   SearchRecommendations,
   LoadingSearchResult,
+  Row,
+  Column
 };

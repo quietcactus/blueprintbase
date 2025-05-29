@@ -1,0 +1,15 @@
+.row,
+.row-wide,
+.row-narrow {
+  max-width: 1280px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media screen and (min-width: 768px) {
+  .main-inner {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -o-flex;
+    display: flex;
+  }
+}
