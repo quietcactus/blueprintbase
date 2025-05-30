@@ -25,6 +25,8 @@ import LoadingSearchResult from './LoadingSearchResult';
 import SearchRecommendations from './SearchRecommendations';
 import Row from './Row';
 import Column from './Column';
+import RelatedPractices from './RelatedPractices';
+import Accordion from './Accordion';
 
 export {
   Button,
@@ -53,5 +55,7 @@ export {
   SearchRecommendations,
   LoadingSearchResult,
   Row,
-  Column
+  Column,
+  RelatedPractices,
+  Accordion
 };

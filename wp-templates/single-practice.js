@@ -13,7 +13,9 @@ import {
   FeaturedImage,
   SEO,
   Row,
-  Column
+  Column,
+  RelatedPractices,
+  Accordion
 } from '../components';
 
 export default function Practice(props) {
@@ -49,10 +51,18 @@ export default function Practice(props) {
         <Row className="main-inner">
           <Column className="content">
             <div className="entry-content" dangerouslySetInnerHTML={{ __html: content }} />
+            <Accordion
+              className="accordion"
+              title="Frequently Asked Questions"
+              answer={[
+                'Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc. Aenean massa. Donec sodales sagittis magna. Vestibulum suscipit nulla quis orci. In auctor lobortis lacus.',
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.',
+              ]}
+            />
           </Column>
           <Column className="sidebar">
             <div className="sidebar-inner">
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit veniam est molestias expedita illum optio ea veritatis magnam ducimus, suscipit quis nisi ipsa deleniti asperiores, rerum quisquam atque! Quibusdam, maxime?</p>
+              <RelatedPractices parentId={1523} />
             </div>
           </Column>
         </Row>
