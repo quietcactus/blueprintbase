@@ -7,7 +7,6 @@ import {
   Header,
   Footer,
   Main,
-  ContentWrapper,
   EntryHeader,
   NavigationMenu,
   FeaturedImage,
@@ -27,7 +26,9 @@ export default function Practice(props) {
     props?.data?.generalSettings;
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
-  const { title, content, featuredImage } = props?.data?.practice ?? { title: '' };
+  const { databaseId, title, content, featuredImage } = props?.data?.practiceAreas ?? { title: '' };
+
+  console.log(props.data.practiceAreas);
 
   return (
     <>
@@ -62,7 +63,7 @@ export default function Practice(props) {
           </Column>
           <Column className="sidebar">
             <div className="sidebar-inner">
-              <RelatedPractices parentId={1523} />
+              <RelatedPractices parentId={databaseId} allPractices={props.data.practiceAreas} rootData={props.data.rootData.nodes} />
             </div>
           </Column>
         </Row>
@@ -81,20 +82,38 @@ Practice.variables = ({ uri }, ctx) => {
   };
 };
 
+const PracticeFieldsFragment = gql`
+  fragment PracticeFieldsFragment on Practice {
+    databaseId
+    title
+    uri
+    parentDatabaseId
+  }
+`;
+
 Practice.query = gql`
   ${BlogInfoFragment}
-  ${NavigationMenu.fragments.entry}
-  ${FeaturedImage.fragments.entry}
+  ${NavigationMenu.fragments.entry}       # NavigationMenuItemFragment
+  ${FeaturedImage.fragments.entry}        # FeaturedImageFragment
+  ${PracticeFieldsFragment}
+
   query GetPracticeData(
     $uri: ID!
     $headerLocation: MenuLocationEnum
     $footerLocation: MenuLocationEnum
     $asPreview: Boolean = false
   ) {
-    practice(id: $uri, idType: URI, asPreview: $asPreview) {
+    practiceAreas: practice(id: $uri, idType: URI, asPreview: $asPreview) {
+      id
       title
       content
+      databaseId
       ...FeaturedImageFragment
+      children {
+        nodes {
+          ...PracticeFieldsFragment
+        }
+      }
     }
     generalSettings {
       ...BlogInfoFragment
@@ -107,6 +126,11 @@ Practice.query = gql`
     headerMenuItems: menuItems(where: { location: $headerLocation }) {
       nodes {
         ...NavigationMenuItemFragment
+      }
+    }
+    rootData: practices(where: { parent: null }) {
+      nodes {
+        ...PracticeFieldsFragment
       }
     }
   }
