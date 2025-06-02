@@ -27,6 +27,12 @@
   --swiper-pagination-bottom: -50px;
 }
 
+.practice-box-list {
+  display: grid;
+  grid-row-gap: 20px;
+  grid-column-gap: 20px;
+}
+
 @media screen and (min-width: 768px) {
   .main-inner {
     display: -webkit-flex;
@@ -55,5 +61,9 @@
 @media screen and (min-width: 1025px) {
   .content {
     padding-right: calc(2 * var(--gutter-size));
+  }
+
+  .practice-box-list {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

@@ -27,6 +27,7 @@ import Row from './Row';
 import Column from './Column';
 import RelatedPractices from './RelatedPractices';
 import Accordion from './Accordion';
+import PracticeBox from './PracticeBox';
 
 export {
   Button,
@@ -57,5 +58,6 @@ export {
   Row,
   Column,
   RelatedPractices,
-  Accordion
+  Accordion,
+  PracticeBox,
 };
