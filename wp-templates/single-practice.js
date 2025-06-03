@@ -29,6 +29,8 @@ export default function Practice(props) {
   // Set primary menu items
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
 
+  console.log(primaryMenu)
+
   // Set footer menu items
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
 
@@ -41,6 +43,7 @@ export default function Practice(props) {
   // Destructure current practice area data
   const {
     databaseId,
+    parentDatabaseId: currentPracticeParentId,
     title,
     content,
     featuredImage
@@ -82,7 +85,7 @@ export default function Practice(props) {
           </Column>
           <Column className="sidebar">
             <div className="sidebar-inner">
-              <RelatedPractices parentId={databaseId} currentPractice={currentPractice} allPractices={allPractices} />
+              <RelatedPractices currentPractice={currentPractice} allPractices={allPractices} />
             </div>
           </Column>
         </Row>
@@ -123,11 +126,8 @@ Practice.query = gql`
     $asPreview: Boolean = false
   ) {
     currentPracticeArea: practice(id: $uri, idType: URI, asPreview: $asPreview) {
-      id
-      title
       content
-      databaseId
-      parentDatabaseId
+      ...PracticeFieldsFragment
       ...FeaturedImageFragment
       children {
         nodes {
