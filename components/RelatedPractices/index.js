@@ -1,25 +1,28 @@
 // components/RelatedPractices.js
 import { gql, useQuery } from '@apollo/client';
 
-export default function RelatedPractices({ parentId, allPractices, rootData }) {
+export default function RelatedPractices({ parentId, currentPractice, allPractices }) {
 
-  console.log('RelatedPractices', { parentId, allPractices, rootData });
+  const { children: { nodes: currentPracticeChildren }, parentDatabaseId: currentPracticeParentId } = currentPractice || {};
 
-  // const { practice } = data || {};
-  // const rootPractices = rootData?.practices?.nodes || [];
+  console.log(currentPractice)
+  console.log(allPractices)
 
-  // if allPractices.children.nodes is not empty, practicesToDisplay is allPractices, else it is rootData
-  const practicesToDisplay = allPractices?.children?.nodes?.length
-    ? allPractices.children.nodes
-    : rootData || {};
+  // initialize practicesToDisplay based on the current practice's children or root practices
+  let practicesToDisplay = [];
 
-
+  if (currentPracticeChildren.length || currentPracticeParentId !== null) {
+    practicesToDisplay = currentPracticeChildren;
+  }
+  else {
+    practicesToDisplay = rootPractices;
+  }
 
   return (
     <section className="sidebar-block">
-      <h2>{allPractices?.title}</h2>
+      <h2>{currentPractice?.title}</h2>
       <ul>
-        {allPractices && (
+        {currentPractice && (
           <li>
             <a href="/practice-areas/">Overview</a>
           </li>

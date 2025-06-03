@@ -22,13 +22,32 @@ export default function Practice(props) {
     return <>Loading...</>;
   }
 
+  // Set page title and description
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
-  const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
-  const { databaseId, title, content, featuredImage } = props?.data?.practiceAreas ?? { title: '' };
 
-  console.log(props.data.practiceAreas);
+  // Set primary menu items
+  const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
+
+  // Set footer menu items
+  const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
+
+  // Set current practice area data
+  const currentPractice = props?.data?.currentPracticeArea ?? [];
+
+  // Set all practice areas data
+  const { nodes: allPractices } = props?.data?.allPracticeAreas ?? { nodes: [] };
+
+  // Destructure current practice area data
+  const {
+    databaseId,
+    title,
+    content,
+    featuredImage
+  } = props?.data?.currentPracticeArea ?? { title: '' };
+
+  // console.log('allPractices', allPractices);
+  // console.log('currentPractice', currentPractice);
 
   return (
     <>
@@ -63,7 +82,7 @@ export default function Practice(props) {
           </Column>
           <Column className="sidebar">
             <div className="sidebar-inner">
-              <RelatedPractices parentId={databaseId} allPractices={props.data.practiceAreas} rootData={props.data.rootData.nodes} />
+              <RelatedPractices parentId={databaseId} currentPractice={currentPractice} allPractices={allPractices} />
             </div>
           </Column>
         </Row>
@@ -103,16 +122,22 @@ Practice.query = gql`
     $footerLocation: MenuLocationEnum
     $asPreview: Boolean = false
   ) {
-    practiceAreas: practice(id: $uri, idType: URI, asPreview: $asPreview) {
+    currentPracticeArea: practice(id: $uri, idType: URI, asPreview: $asPreview) {
       id
       title
       content
       databaseId
+      parentDatabaseId
       ...FeaturedImageFragment
       children {
         nodes {
           ...PracticeFieldsFragment
         }
+      }
+    }
+    allPracticeAreas: practices {
+      nodes {
+        ...PracticeFieldsFragment
       }
     }
     generalSettings {
@@ -126,11 +151,6 @@ Practice.query = gql`
     headerMenuItems: menuItems(where: { location: $headerLocation }) {
       nodes {
         ...NavigationMenuItemFragment
-      }
-    }
-    rootData: practices(where: { parent: null }) {
-      nodes {
-        ...PracticeFieldsFragment
       }
     }
   }
