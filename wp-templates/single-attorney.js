@@ -1,5 +1,6 @@
 import * as MENUS from 'constants/menus';
-import { gql, useQuery } from '@apollo/client';
+import { useEffect } from 'react';
+import { gql } from '@apollo/client';
 import { BlogInfoFragment } from 'fragments/GeneralSettings';
 import { pageTitle } from 'utilities';
 
@@ -13,22 +14,11 @@ import {
   SEO,
   Row,
   Column,
-  PracticeBox,
+  BannerAttorney
 } from '../components';
 
-const GET_ALL_PRACTICES = gql`
-  query GetAllPractices {
-    practices(where: { parentIn: 0 }) {
-      nodes {
-        id
-        title
-        slug
-      }
-    }
-  }
-`;
-
-export default function Practice(props) {
+export default function Component(props) {
+  // Loading state for previews
   if (props.loading) {
     return <>Loading...</>;
   }
@@ -37,18 +27,8 @@ export default function Practice(props) {
     props?.data?.generalSettings;
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
-  const { title, content, featuredImage } = props?.data?.practice ?? { title: '' };
-
-  const { data, loading, error } = useQuery(GET_ALL_PRACTICES);
-
-  if (loading) {
-    return <p>Loading practice areas…</p>;
-  }
-  if (error) {
-    return <p>Error loading practice areas: {error.message}</p>;
-  }
-
-  const { nodes: practices } = data.practices;
+  const { title, content, featuredImage, attorneyFields } = props?.data?.attorney ?? { title: '' };
+  const attorney = props?.data?.attorney;
 
   return (
     <>
@@ -56,7 +36,7 @@ export default function Practice(props) {
         title={pageTitle(
           props?.data?.generalSettings,
           title,
-          siteTitle
+          props?.data?.generalSettings?.title
         )}
         description={siteDescription}
         imageUrl={featuredImage?.node?.sourceUrl}
@@ -66,50 +46,53 @@ export default function Practice(props) {
         description={siteDescription}
         menuItems={primaryMenu}
       />
-
-      <Main>
-        <Row className="main-inner">
-          <Column className="content full-width">
-            <h1>Practice Areas</h1>
-            <div className="practice-box-list">
-              {practices.map((practice) => (
-                <PracticeBox
-                  title={practice.title}
-                  link={`/practice/${practice.slug}`}
-                />
-              ))}
-            </div>
-
+      <BannerAttorney attorney={attorney} />
+      <Main className='main'>
+        <Row className='main-inner'>
+          <Column className='content'>
+            <div dangerouslySetInnerHTML={{ __html: content }}  ></div>
+          </Column>
+          <Column className='sidebar'>
+            {attorneyFields?.sidebarText && (
+              <section className="sidebar-block" dangerouslySetInnerHTML={{ __html: attorneyFields.sidebarText }} />
+            )}
           </Column>
         </Row>
-      </Main>
+      </Main >
       <Footer title={siteTitle} menuItems={footerMenu} />
     </>
   );
 }
 
-Practice.variables = ({ uri }, ctx) => {
+Component.variables = ({ databaseId }, ctx) => {
   return {
-    uri,
+    databaseId,
     headerLocation: MENUS.PRIMARY_LOCATION,
     footerLocation: MENUS.FOOTER_LOCATION,
     asPreview: ctx?.asPreview,
   };
 };
 
-Practice.query = gql`
+Component.query = gql`
   ${BlogInfoFragment}
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
-  query GetPracticeData(
-    $uri: ID!
+  query GetPageData(
+    $databaseId: ID!
     $headerLocation: MenuLocationEnum
     $footerLocation: MenuLocationEnum
     $asPreview: Boolean = false
   ) {
-    practice(id: $uri, idType: URI, asPreview: $asPreview) {
+    attorney(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content
+      attorneyFields {
+        position
+        phone
+        email
+        fax
+        sidebarText
+      }
       ...FeaturedImageFragment
     }
     generalSettings {
@@ -127,4 +110,3 @@ Practice.query = gql`
     }
   }
 `;
-

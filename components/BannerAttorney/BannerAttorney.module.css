@@ -1,0 +1,142 @@
+.banner-inner {
+  position: relative;
+  z-index: 1;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: center;
+  -o-flex-wrap: wrap;
+  flex-wrap: wrap;
+  height: 100%;
+  float: none;
+}
+
+.banner {
+  height: auto;
+  padding: 40px 0;
+}
+
+.attorney-banner-name h1 {
+  font-size: 2.2rem;
+  color: var(--color-near-white);
+  margin-bottom: 10px;
+}
+
+.attorney-banner-left {
+  margin: 0 auto 20px;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+}
+
+.attorney-banner-left img {
+  max-width: 300px;
+}
+
+.attorney-banner-right {
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+}
+
+.attorney-banner-phone-fax,
+.attorney-banner-info p {
+  margin-bottom: 15px;
+}
+
+.attorney-banner-info p,
+.attorney-banner-info a {
+  color: var(--color-near-white);
+  line-height: 1;
+  font-size: 1.1rem;
+}
+
+.attorney-banner-info > p:last-child {
+  margin: 0;
+}
+
+.attorney-banner-info .divider-span {
+  display: none;
+}
+
+.attorney-banner-position {
+  text-transform: uppercase;
+  color: var(--color-near-white);
+}
+
+@media screen and (min-width: 1025px) {
+  .attorney-banner-flex-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .attorney-banner-flex-row p {
+    margin: 0 24px 0 0;
+  }
+
+  .attorney-banner-name h1 {
+    font-size: 2.8rem;
+  }
+
+  .attorney-banner-left img {
+    max-width: none;
+    width: auto;
+  }
+
+  .attorney-banner-right {
+    min-width: 50%;
+    margin-left: 40px;
+    text-align: left;
+  }
+
+  .banner {
+    height: auto;
+    padding: 25px 0 0;
+  }
+
+  .banner-inner {
+    -o-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+  }
+}
+
+/* Attorney Banner Template A */
+.attorney-banner-right {
+  background-color: var(--color-primary);
+  position: relative;
+}
+
+.attorney-banner-left {
+  -ms-align-self: flex-end;
+  align-self: flex-end;
+  margin-bottom: 0;
+}
+
+.attorney-banner-name,
+.attorney-banner-info {
+  padding: 30px 45px;
+}
+
+.attorney-banner-name {
+  border-bottom: 1px solid var(--color-near-white);
+}
+
+.attorney-banner-name h1 {
+  color: var(--color-near-white);
+  margin-bottom: 0;
+  letter-spacing: 1px;
+}
+
+.attorney-banner-info i {
+  color: var(--color-secondary);
+  width: 20px;
+  text-align: center;
+}

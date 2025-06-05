@@ -47,7 +47,7 @@ export default function Practice(props) {
     title,
     content,
     featuredImage
-  } = props?.data?.currentPracticeArea ?? { title: '' };
+  } = currentPractice ?? { title: '' };
 
   // console.log('allPractices', allPractices);
   // console.log('currentPractice', currentPractice);
@@ -70,7 +70,6 @@ export default function Practice(props) {
       />
 
       <Main>
-        <EntryHeader title={title} image={featuredImage?.node} />
         <Row className="main-inner">
           <Column className="content">
             <div className="entry-content" dangerouslySetInnerHTML={{ __html: content }} />

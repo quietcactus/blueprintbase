@@ -12,6 +12,7 @@ export default class MyDocument extends Document {
           <meta name="format-detection" content="telephone=no" />
           <meta charset="UTF-8" />
           <meta name="Copyright" content="PaperStreet Web Design" />
+          <script src="https://kit.fontawesome.com/c6a738eb67.js" crossorigin="anonymous"></script>
         </Head>
         <body>
           <Main />

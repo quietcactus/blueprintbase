@@ -5,6 +5,7 @@ import project from './project';
 import archive from './archive';
 import singlePractice from './single-practice';
 import practicesLanding from './template-Practices-landing';
+import singleAttorney from './single-attorney';
 
 export default {
   page,
@@ -13,5 +14,6 @@ export default {
   archive,
   'front-page': frontPage,
   "template-Practices-landing": practicesLanding,
-  "single-practice": singlePractice
+  "single-practice": singlePractice,
+  "single-attorney": singleAttorney
 };

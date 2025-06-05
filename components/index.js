@@ -28,6 +28,7 @@ import Column from './Column';
 import RelatedPractices from './RelatedPractices';
 import Accordion from './Accordion';
 import PracticeBox from './PracticeBox';
+import BannerAttorney from './BannerAttorney';
 
 export {
   Button,
@@ -60,4 +61,5 @@ export {
   RelatedPractices,
   Accordion,
   PracticeBox,
+  BannerAttorney
 };
