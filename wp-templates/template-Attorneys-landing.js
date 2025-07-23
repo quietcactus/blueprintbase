@@ -1,4 +1,5 @@
 import * as MENUS from 'constants/menus';
+
 import { gql, useQuery } from '@apollo/client';
 import { BlogInfoFragment } from 'fragments/GeneralSettings';
 import { pageTitle } from 'utilities';
@@ -12,12 +13,11 @@ import {
   SEO,
   Row,
   Column,
-  PracticeBox,
 } from '../components';
 
-const GET_ALL_PRACTICES = gql`
-  query GetAllPractices {
-    practices(where: { parentIn: 0 }) {
+const GET_ALL_ATTORNEYS = gql`
+  query GetAllAttorneys {
+    attorneys(where: { parentIn: 0 }) {
       nodes {
         id
         title
@@ -27,7 +27,7 @@ const GET_ALL_PRACTICES = gql`
   }
 `;
 
-export default function Practice(props) {
+export default function Attorney(props) {
   if (props.loading) {
     return <>Loading...</>;
   }
@@ -36,20 +36,18 @@ export default function Practice(props) {
     props?.data?.generalSettings;
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
-  const { title, content, featuredImage } = props?.data?.practice ?? { title: '' };
+  const { title, content, featuredImage } = props?.data?.attorney ?? { title: '' };
 
-  // Fetch all practice areas
-  const { data, loading, error } = useQuery(GET_ALL_PRACTICES);
+  const { data, loading, error } = useQuery(GET_ALL_ATTORNEYS);
 
   if (loading) {
-    return <p>Loading practice areas…</p>;
+    return <p>Loading attorneys…</p>;
   }
   if (error) {
-    return <p>Error loading practice areas: {error.message}</p>;
+    return <p>Error loading attorneys: {error.message}</p>;
   }
 
-  // Destructure practices from the fetched data
-  const { nodes: practices } = data.practices;
+  const { nodes: attorneys } = data.attorneys;
 
   return (
     <>
@@ -71,13 +69,10 @@ export default function Practice(props) {
       <Main>
         <Row className="main-inner">
           <Column className="content full-width">
-            <h1>Practice Areas</h1>
+            <h1>Attorneys</h1>
             <div className="practice-box-list">
-              {practices.map((practice) => (
-                <PracticeBox
-                  title={practice.title}
-                  link={`/practice/${practice.slug}`}
-                />
+              {attorneys.map((attorney) => (
+                <div></div>
               ))}
             </div>
 
@@ -89,7 +84,7 @@ export default function Practice(props) {
   );
 }
 
-Practice.variables = ({ uri }, ctx) => {
+Attorney.variables = ({ uri }, ctx) => {
   return {
     uri,
     headerLocation: MENUS.PRIMARY_LOCATION,
@@ -98,19 +93,17 @@ Practice.variables = ({ uri }, ctx) => {
   };
 };
 
-// Define the GraphQL query to fetch practice data
-// The data is stored in the props.data object
-Practice.query = gql`
+Attorney.query = gql`
   ${BlogInfoFragment}
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
-  query GetPracticeData(
+  query GetAttorneyData(
     $uri: ID!
     $headerLocation: MenuLocationEnum
     $footerLocation: MenuLocationEnum
     $asPreview: Boolean = false
   ) {
-    practice(id: $uri, idType: URI, asPreview: $asPreview) {
+    attorney(id: $uri, idType: URI, asPreview: $asPreview) {
       title
       content
       ...FeaturedImageFragment

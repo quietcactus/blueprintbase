@@ -1,4 +1,5 @@
 import * as MENUS from 'constants/menus';
+
 import { gql } from '@apollo/client';
 import { BlogInfoFragment } from 'fragments/GeneralSettings';
 import { pageTitle } from 'utilities';
@@ -7,7 +8,6 @@ import {
   Header,
   Footer,
   Main,
-  EntryHeader,
   NavigationMenu,
   FeaturedImage,
   SEO,
