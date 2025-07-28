@@ -13,21 +13,33 @@ import {
   SEO,
   Row,
   Column,
+  AttorneyResultsWrapper,
+  AttorneyBox,
 } from '../components';
 
 const GET_ALL_ATTORNEYS = gql`
   query GetAllAttorneys {
-    attorneys(where: { parentIn: 0 }) {
+    attorneys(where: { parentIn: 0, orderby: { field: MENU_ORDER, order: ASC } }) {
       nodes {
         id
         title
-        slug
+        uri
+        attorneyFields {
+          thumbnailPhoto {
+            node {
+              sourceUrl
+            }
+          }
+          position
+        }
       }
     }
   }
 `;
 
 export default function Attorney(props) {
+  const { data, loading, error } = useQuery(GET_ALL_ATTORNEYS);
+
   if (props.loading) {
     return <>Loading...</>;
   }
@@ -36,9 +48,9 @@ export default function Attorney(props) {
     props?.data?.generalSettings;
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
-  const { title, content, featuredImage } = props?.data?.attorney ?? { title: '' };
+  const { title, featuredImage } = props?.data?.attorney ?? { title: '' };
 
-  const { data, loading, error } = useQuery(GET_ALL_ATTORNEYS);
+  console.log(data);
 
   if (loading) {
     return <p>Loading attorneys…</p>;
@@ -67,15 +79,20 @@ export default function Attorney(props) {
       />
 
       <Main>
-        <Row className="main-inner">
+        <Row className="main-inner test">
           <Column className="content full-width">
             <h1>Attorneys</h1>
-            <div className="practice-box-list">
+            <AttorneyResultsWrapper attorneys={attorneys} >
               {attorneys.map((attorney) => (
-                <div></div>
+                <AttorneyBox
+                  key={attorney.id}
+                  title={attorney.title}
+                  link={attorney.uri}
+                  attorneyPhoto={attorney.attorneyFields?.thumbnailPhoto?.node?.sourceUrl}
+                  attorneyPosition={attorney.attorneyFields?.position}
+                />
               ))}
-            </div>
-
+            </AttorneyResultsWrapper>
           </Column>
         </Row>
       </Main>

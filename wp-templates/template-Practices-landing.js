@@ -1,4 +1,5 @@
 import * as MENUS from 'constants/menus';
+
 import { gql, useQuery } from '@apollo/client';
 import { BlogInfoFragment } from 'fragments/GeneralSettings';
 import { pageTitle } from 'utilities';
@@ -28,6 +29,9 @@ const GET_ALL_PRACTICES = gql`
 `;
 
 export default function Practice(props) {
+  // Fetch all practice areas
+  const { data, loading, error } = useQuery(GET_ALL_PRACTICES);
+
   if (props.loading) {
     return <>Loading...</>;
   }
@@ -36,10 +40,7 @@ export default function Practice(props) {
     props?.data?.generalSettings;
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
-  const { title, content, featuredImage } = props?.data?.practice ?? { title: '' };
-
-  // Fetch all practice areas
-  const { data, loading, error } = useQuery(GET_ALL_PRACTICES);
+  const { title, featuredImage } = props?.data?.practice ?? { title: '' };
 
   if (loading) {
     return <p>Loading practice areas…</p>;
@@ -75,6 +76,7 @@ export default function Practice(props) {
             <div className="practice-box-list">
               {practices.map((practice) => (
                 <PracticeBox
+                  key={practice.id}
                   title={practice.title}
                   link={`/practice/${practice.slug}`}
                 />

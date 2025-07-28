@@ -29,6 +29,8 @@ import RelatedPractices from './RelatedPractices';
 import Accordion from './Accordion';
 import PracticeBox from './PracticeBox';
 import BannerAttorney from './BannerAttorney';
+import AttorneyBox from './AttorneyBox';
+import AttorneyResultsWrapper from './AttorneyResultsWrapper';
 
 export {
   Button,
@@ -61,5 +63,7 @@ export {
   RelatedPractices,
   Accordion,
   PracticeBox,
-  BannerAttorney
+  BannerAttorney,
+  AttorneyBox,
+  AttorneyResultsWrapper
 };

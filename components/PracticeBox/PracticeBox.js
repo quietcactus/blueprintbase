@@ -1,4 +1,5 @@
 import className from 'classnames/bind';
+
 import styles from './PracticeBox.module.css';
 const cx = className.bind(styles);
 

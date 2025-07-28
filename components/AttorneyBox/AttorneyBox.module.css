@@ -1,0 +1,59 @@
+.attorney-single-box {
+	padding: 0;
+	background: var(--color-white);
+	display: flex;
+	align-items: flex-end;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 15px;
+}
+
+.attorney-results .attorney-single-box {
+	width: 100%;
+}
+
+.attorney-single-box img {
+	width: 100%;
+	transition: all 200ms ease-out;
+}
+
+.attorney-single-box:hover img,
+.attorney-single-box:focus img {
+	transform: scale(1.03);
+}
+
+.attorney-single-box .attorney-single-box-info {
+	padding: 12px;
+	background-color: var(--color-primary);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	text-align: center;
+	transition: background 200ms ease-out;
+}
+
+.attorney-single-box-info h2,
+.attorney-single-box-info p {
+	color: white;
+	margin: 0;
+}
+
+.attorney-single-box:hover .attorney-single-box-info,
+.attorney-single-box:focus .attorney-single-box-info {
+	background: var(--color-alternate);
+}
+
+.attorney-single-box h2 {
+	font-size: 1.3rem;
+}
+
+.attorney-single-box-info p {
+	font-size: 0.9rem;
+}
+
+@media screen and (min-width: 650px) {
+	.attorney-single-box {
+		margin-bottom: 0;
+	}
+}

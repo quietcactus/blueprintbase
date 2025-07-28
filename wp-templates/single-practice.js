@@ -42,8 +42,8 @@ export default function Practice(props) {
 
   // Destructure current practice area data
   const {
-    databaseId,
-    parentDatabaseId: currentPracticeParentId,
+    // databaseId,
+    // parentDatabaseId: currentPracticeParentId,
     title,
     content,
     featuredImage

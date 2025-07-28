@@ -1,0 +1,33 @@
+/* Attorney Boxes */
+.main-attorney-search,
+.page-template-template-attorneys main {
+	background: var(--color-light-gray);
+}
+
+.attorney-search-inner {
+	display: block;
+	outline: none;
+	transition: filter 300ms ease-out, opacity 100ms ease-out;
+}
+
+.attorney-search-inner.search-running {
+	filter: blur(12px);
+	opacity: 0;
+}
+
+@media screen and (min-width: 650px) {
+	.attorney-results {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-row-gap: 20px;
+		grid-column-gap: 20px;
+	}
+}
+
+@media screen and (min-width: 900px) {
+
+
+	.attorney-results {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
