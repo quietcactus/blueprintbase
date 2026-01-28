@@ -6,13 +6,17 @@ This repository contains a starter Blueprint to get you up and running quickly o
 Headless wordpress separates the backend and the frontend unlike traditional WordPress where these two are closely tied together. We have a our normal WordPress install, where we manage the backend and content. Additionally we have another environment exclusively to run the front end. This uses graphql, to connect and pull data from the backend and display it on the front end.
 
 ### GraphQL
-This is our new way to query anything from the wordpress admin. When the GQL plugin is installed, ACF fields are allowed to be displayed within GQL so they can be accessible
+This is our new way to query anything from the wordpress admin. When the GQL plugin is installed, ACF fields need to be displayed within GQL so they can be accessible
 
 ### Components
-Components are reusable elements. Think of our includes files, or sometimes a function in functions-content-generation.php. These are essentially the same thing, but they are built within JS exclusively using a JS framework.
+Components are reusable elements. Think of our includes files, template-parts, or sometimes a function in functions-content-generation.php. Few custom components listed below:
 
 #### Custom Components 
 - Banner
+- BannerAttorney
+- AttorneyResultsWrapper
+- AttorneyBox
+- Accordion
 - Column
 - Row
 - PracticeBox
